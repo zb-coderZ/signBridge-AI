@@ -1,0 +1,74 @@
+# SignBridge AI - single configuration file. All paths are relative to the project root.
+paths:
+  data_raw: data/raw
+  data_processed: data/processed
+  models_trained: models/trained     # real models (preferred by the app when present)
+  models_demo: models/demo           # synthetic demo models (fallback)
+  reports: reports
+  logs: logs
+  hand_model: models/hand_landmarker.task
+
+hand_detector:
+  model_url: https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task
+  num_hands: 2
+  min_detection_confidence: 0.5
+  min_presence_confidence: 0.5
+  min_tracking_confidence: 0.5
+  mirror_input: true        # selfie view; used identically for dataset extraction and live video
+
+languages: [PSL, ASL]
+sequence_length: 30
+
+recognition:
+  confidence_threshold: 0.70          # static signs
+  dynamic_confidence_threshold: 0.75  # dynamic signs
+  stable_frames: 8                    # N consecutive agreeing frames before commit
+  cooldown_s: 1.2
+  require_release: true               # same sign cannot re-commit until hand dropped / sign changed
+  unknown_label: unknown
+  motion_window: 15                   # frames used for the static/dynamic switch
+  motion_threshold: 0.14              # calibrated on SYNTHETIC data; retune for real webcams (README)
+  dynamic_every_n_frames: 3
+  sequence_window_s: 1.0              # live frames of the last N seconds are resampled to 30 frames
+  dynamic_hold_s: 0.6                 # stay in dynamic mode this long after motion stops
+  auto_window_s: 3.0                  # Auto-detect language window
+  top_k: 3
+  history_len: 300
+
+training:
+  seed: 42
+  test_size: 0.25                     # fraction of SIGNERS held out for testing
+  val_size: 0.20                      # fraction of remaining signers used for validation
+  augment_copies: 3
+  noise_std: 0.004
+  rotation_deg: 15.0
+  scale_jitter: 0.10
+  rf_estimators: 200
+  mlp_epochs: 60
+  rnn_epochs: 100
+  rnn_units: 64
+  batch_size: 64
+
+demo:                                  # synthetic landmark generator (NOT real sign data)
+  n_signers: 8
+  static_per_class_per_signer: 40
+  dynamic_per_class_per_signer: 30
+
+practice:
+  max_distance: 0.60                  # mean landmark distance (palm units) that maps to score 0
+
+tts:
+  rate: 170
+  urdu_keywords: [urdu, ur-pk, ur_pk, ur-in, pakistan]
+
+llm:                                   # optional gloss-to-sentence; never required
+  env_key: ANTHROPIC_API_KEY
+  model: claude-haiku-5-5
+  max_tokens: 120
+
+stt:
+  backend: auto                        # auto | google | whisper
+  languages: {en: en-US, ur: ur-PK}
+
+webrtc:
+  stun_servers: ["stun:stun.l.google.com:19302"]

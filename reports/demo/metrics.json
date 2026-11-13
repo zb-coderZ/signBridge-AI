@@ -1,0 +1,950 @@
+{
+  "environment": {
+    "python": "3.12.3",
+    "platform": "Linux-6.18.44-fc-v378-x86_64-with-glibc2.39",
+    "cpu": "x86_64",
+    "note": "latency measured on CPU, camera capture excluded"
+  },
+  "models_dir": "models/demo",
+  "languages": {
+    "PSL": {
+      "static": {
+        "is_demo": true,
+        "split_mode": "cross_signer",
+        "n_test": 640,
+        "test_signers": [
+          "synth_PSL_1",
+          "synth_PSL_5"
+        ],
+        "n_train_signers": 4,
+        "classes": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "P5",
+          "P6",
+          "unknown"
+        ],
+        "models": {
+          "rf": {
+            "accuracy": 0.9609375,
+            "macro_precision": 0.967965367965368,
+            "macro_recall": 0.9642857142857143,
+            "macro_f1": 0.9659695143566112,
+            "per_class": {
+              "P1": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "P2": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "P3": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "P4": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "P5": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "P6": {
+                "precision": 0.8666666666666667,
+                "recall": 0.8125,
+                "f1": 0.8387096774193549,
+                "support": 80
+              },
+              "unknown": {
+                "precision": 0.9090909090909091,
+                "recall": 0.9375,
+                "f1": 0.9230769230769231,
+                "support": 160
+              }
+            },
+            "confusion_matrix": [
+              [
+                80,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                80,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                80,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                80,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                80,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                65,
+                15
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                10,
+                150
+              ]
+            ],
+            "confusion_png": "confusion_static_PSL_rf.png",
+            "latency_ms_per_sample_model_only": 8.016865960000814
+          },
+          "mlp": {
+            "accuracy": 0.9578125,
+            "macro_precision": 0.9658881844920727,
+            "macro_recall": 0.9607142857142856,
+            "macro_f1": 0.9629943720607509,
+            "per_class": {
+              "P1": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "P2": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "P3": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "P4": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "P5": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "P6": {
+                "precision": 0.863013698630137,
+                "recall": 0.7875,
+                "f1": 0.8235294117647058,
+                "support": 80
+              },
+              "unknown": {
+                "precision": 0.8982035928143712,
+                "recall": 0.9375,
+                "f1": 0.9174311926605505,
+                "support": 160
+              }
+            },
+            "confusion_matrix": [
+              [
+                80,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                80,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                80,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                80,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                80,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                63,
+                17
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                10,
+                150
+              ]
+            ],
+            "confusion_png": "confusion_static_PSL_mlp.png",
+            "latency_ms_per_sample_model_only": 2.098102679999556
+          }
+        }
+      },
+      "dynamic": {
+        "is_demo": true,
+        "split_mode": "cross_signer",
+        "n_test": 300,
+        "test_signers": [
+          "synth_PSL_1",
+          "synth_PSL_5"
+        ],
+        "n_train_signers": 4,
+        "classes": [
+          "CIRCLE",
+          "NOD",
+          "PINCH",
+          "SWIPE",
+          "WAVE"
+        ],
+        "models": {
+          "lstm": {
+            "accuracy": 0.99,
+            "macro_precision": 0.9904761904761905,
+            "macro_recall": 0.99,
+            "macro_f1": 0.9899937460913071,
+            "per_class": {
+              "CIRCLE": {
+                "precision": 1.0,
+                "recall": 0.95,
+                "f1": 0.9743589743589743,
+                "support": 60
+              },
+              "NOD": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 60
+              },
+              "PINCH": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 60
+              },
+              "SWIPE": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 60
+              },
+              "WAVE": {
+                "precision": 0.9523809523809523,
+                "recall": 1.0,
+                "f1": 0.975609756097561,
+                "support": 60
+              }
+            },
+            "confusion_matrix": [
+              [
+                57,
+                0,
+                0,
+                0,
+                3
+              ],
+              [
+                0,
+                60,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                60,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                60,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                60
+              ]
+            ],
+            "confusion_png": "confusion_dynamic_PSL_lstm.png",
+            "latency_ms_per_sample_model_only": 38.64109996000025
+          },
+          "gru": {
+            "accuracy": 1.0,
+            "macro_precision": 1.0,
+            "macro_recall": 1.0,
+            "macro_f1": 1.0,
+            "per_class": {
+              "CIRCLE": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 60
+              },
+              "NOD": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 60
+              },
+              "PINCH": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 60
+              },
+              "SWIPE": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 60
+              },
+              "WAVE": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 60
+              }
+            },
+            "confusion_matrix": [
+              [
+                60,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                60,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                60,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                60,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                60
+              ]
+            ],
+            "confusion_png": "confusion_dynamic_PSL_gru.png",
+            "latency_ms_per_sample_model_only": 55.24786251000023
+          }
+        }
+      },
+      "pipeline_latency": {
+        "static": {
+          "mean_ms": 2.377464399978635,
+          "p95_ms": 2.5928714000428954,
+          "fps_pipeline_only": 420.6161825215917,
+          "frames": 35
+        },
+        "dynamic": {
+          "mean_ms": 15.88552003361373,
+          "p95_ms": 52.942188099927975,
+          "fps_pipeline_only": 62.95041005166982,
+          "frames": 595
+        }
+      }
+    },
+    "ASL": {
+      "static": {
+        "is_demo": true,
+        "split_mode": "cross_signer",
+        "n_test": 720,
+        "test_signers": [
+          "synth_ASL_1",
+          "synth_ASL_5"
+        ],
+        "n_train_signers": 4,
+        "classes": [
+          "A",
+          "B",
+          "I",
+          "L",
+          "V",
+          "W",
+          "Y",
+          "unknown"
+        ],
+        "models": {
+          "rf": {
+            "accuracy": 1.0,
+            "macro_precision": 1.0,
+            "macro_recall": 1.0,
+            "macro_f1": 1.0,
+            "per_class": {
+              "A": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "B": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "I": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "L": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "V": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "W": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "Y": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "unknown": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 160
+              }
+            },
+            "confusion_matrix": [
+              [
+                80,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                80,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                80,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                80,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                80,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                80,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                80,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                160
+              ]
+            ],
+            "confusion_png": "confusion_static_ASL_rf.png",
+            "latency_ms_per_sample_model_only": 7.7721742100015945
+          },
+          "mlp": {
+            "accuracy": 1.0,
+            "macro_precision": 1.0,
+            "macro_recall": 1.0,
+            "macro_f1": 1.0,
+            "per_class": {
+              "A": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "B": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "I": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "L": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "V": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "W": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "Y": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 80
+              },
+              "unknown": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 160
+              }
+            },
+            "confusion_matrix": [
+              [
+                80,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                80,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                80,
+                0,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                80,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                80,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                80,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                80,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                160
+              ]
+            ],
+            "confusion_png": "confusion_static_ASL_mlp.png",
+            "latency_ms_per_sample_model_only": 1.6013522899993404
+          }
+        }
+      },
+      "dynamic": {
+        "is_demo": true,
+        "split_mode": "cross_signer",
+        "n_test": 300,
+        "test_signers": [
+          "synth_ASL_1",
+          "synth_ASL_5"
+        ],
+        "n_train_signers": 4,
+        "classes": [
+          "CIRCLE",
+          "NOD",
+          "PINCH",
+          "SWIPE",
+          "WAVE"
+        ],
+        "models": {
+          "lstm": {
+            "accuracy": 0.9966666666666667,
+            "macro_precision": 0.9967213114754099,
+            "macro_recall": 0.9966666666666667,
+            "macro_f1": 0.996666435169109,
+            "per_class": {
+              "CIRCLE": {
+                "precision": 1.0,
+                "recall": 0.9833333333333333,
+                "f1": 0.9915966386554622,
+                "support": 60
+              },
+              "NOD": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 60
+              },
+              "PINCH": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 60
+              },
+              "SWIPE": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 60
+              },
+              "WAVE": {
+                "precision": 0.9836065573770492,
+                "recall": 1.0,
+                "f1": 0.9917355371900827,
+                "support": 60
+              }
+            },
+            "confusion_matrix": [
+              [
+                59,
+                0,
+                0,
+                0,
+                1
+              ],
+              [
+                0,
+                60,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                60,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                60,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                60
+              ]
+            ],
+            "confusion_png": "confusion_dynamic_ASL_lstm.png",
+            "latency_ms_per_sample_model_only": 36.16539772999886
+          },
+          "gru": {
+            "accuracy": 1.0,
+            "macro_precision": 1.0,
+            "macro_recall": 1.0,
+            "macro_f1": 1.0,
+            "per_class": {
+              "CIRCLE": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 60
+              },
+              "NOD": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 60
+              },
+              "PINCH": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 60
+              },
+              "SWIPE": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 60
+              },
+              "WAVE": {
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0,
+                "support": 60
+              }
+            },
+            "confusion_matrix": [
+              [
+                60,
+                0,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                60,
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                60,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                60,
+                0
+              ],
+              [
+                0,
+                0,
+                0,
+                0,
+                60
+              ]
+            ],
+            "confusion_png": "confusion_dynamic_ASL_gru.png",
+            "latency_ms_per_sample_model_only": 59.05776231000118
+          }
+        }
+      },
+      "pipeline_latency": {
+        "static": {
+          "mean_ms": 2.6841382571611967,
+          "p95_ms": 2.9084033999879466,
+          "fps_pipeline_only": 372.5590503142047,
+          "frames": 35
+        },
+        "dynamic": {
+          "mean_ms": 15.342444946215338,
+          "p95_ms": 49.43725460004769,
+          "fps_pipeline_only": 65.17865982283868,
+          "frames": 595
+        }
+      }
+    }
+  },
+  "hand_detector_latency": {
+    "available": false,
+    "reason": "Hand model not available (<urlopen error [Errno -2] Name or service not known>). Download it manually from"
+  }
+}
