@@ -2,11 +2,38 @@
 from __future__ import annotations
 
 import json
+import csv
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import Iterator
 
 import numpy as np
 from sklearn.model_selection import GroupShuffleSplit, StratifiedShuffleSplit
+
+SIGN_MNIST_LABELS = {
+    0: "A", 1: "B", 2: "C", 3: "D", 4: "E", 5: "F", 6: "G", 7: "H",
+    8: "I", 10: "K", 11: "L", 12: "M", 13: "N", 14: "O", 15: "P",
+    16: "Q", 17: "R", 18: "S", 19: "T", 20: "U", 21: "V", 22: "W",
+    23: "X", 24: "Y",
+}
+
+
+def iter_sign_mnist(path: str | Path) -> Iterator[tuple[str, np.ndarray]]:
+    """Yield ``(letter, image)`` rows from a Sign Language MNIST CSV file."""
+    with Path(path).open("r", newline="", encoding="utf-8") as fh:
+        reader = csv.DictReader(fh)
+        if reader.fieldnames is None or "label" not in reader.fieldnames:
+            raise ValueError(f"{path} is not a Sign Language MNIST CSV (missing label column)")
+        pixels = [name for name in reader.fieldnames if name.startswith("pixel")]
+        if len(pixels) != 784:
+            raise ValueError(f"{path} has {len(pixels)} pixel columns; expected 784")
+        for row in reader:
+            try:
+                label = SIGN_MNIST_LABELS[int(row["label"])]
+                image = np.asarray([int(row[name]) for name in pixels], dtype=np.uint8).reshape(28, 28)
+            except (KeyError, ValueError) as exc:
+                raise ValueError(f"invalid Sign Language MNIST row in {path}") from exc
+            yield label, image
 
 
 @dataclass

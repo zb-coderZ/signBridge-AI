@@ -1,8 +1,8 @@
 {
   "environment": {
-    "python": "3.12.3",
-    "platform": "Linux-6.18.44-fc-v378-x86_64-with-glibc2.39",
-    "cpu": "x86_64",
+    "python": "3.12.10",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "cpu": "Intel64 Family 6 Model 186 Stepping 3, GenuineIntel",
     "note": "latency measured on CPU, camera capture excluded"
   },
   "models_dir": "models/demo",
@@ -142,7 +142,7 @@
               ]
             ],
             "confusion_png": "confusion_static_PSL_rf.png",
-            "latency_ms_per_sample_model_only": 8.016865960000814
+            "latency_ms_per_sample_model_only": 89.44371499999988
           },
           "mlp": {
             "accuracy": 0.9578125,
@@ -259,7 +259,7 @@
               ]
             ],
             "confusion_png": "confusion_static_PSL_mlp.png",
-            "latency_ms_per_sample_model_only": 2.098102679999556
+            "latency_ms_per_sample_model_only": 12.092513000000054
           }
         }
       },
@@ -355,7 +355,7 @@
               ]
             ],
             "confusion_png": "confusion_dynamic_PSL_lstm.png",
-            "latency_ms_per_sample_model_only": 38.64109996000025
+            "latency_ms_per_sample_model_only": 255.29588999999987
           },
           "gru": {
             "accuracy": 1.0,
@@ -432,21 +432,21 @@
               ]
             ],
             "confusion_png": "confusion_dynamic_PSL_gru.png",
-            "latency_ms_per_sample_model_only": 55.24786251000023
+            "latency_ms_per_sample_model_only": 382.85372599999846
           }
         }
       },
       "pipeline_latency": {
         "static": {
-          "mean_ms": 2.377464399978635,
-          "p95_ms": 2.5928714000428954,
-          "fps_pipeline_only": 420.6161825215917,
+          "mean_ms": 9.473537142847428,
+          "p95_ms": 16.271779999988212,
+          "fps_pipeline_only": 105.55719420544051,
           "frames": 35
         },
         "dynamic": {
-          "mean_ms": 15.88552003361373,
-          "p95_ms": 52.942188099927975,
-          "fps_pipeline_only": 62.95041005166982,
+          "mean_ms": 87.49846235293545,
+          "p95_ms": 398.59786999988944,
+          "fps_pipeline_only": 11.428772267635757,
           "frames": 595
         }
       }
@@ -610,7 +610,7 @@
               ]
             ],
             "confusion_png": "confusion_static_ASL_rf.png",
-            "latency_ms_per_sample_model_only": 7.7721742100015945
+            "latency_ms_per_sample_model_only": 114.00611199999958
           },
           "mlp": {
             "accuracy": 1.0,
@@ -750,7 +750,7 @@
               ]
             ],
             "confusion_png": "confusion_static_ASL_mlp.png",
-            "latency_ms_per_sample_model_only": 1.6013522899993404
+            "latency_ms_per_sample_model_only": 11.89585500000021
           }
         }
       },
@@ -846,7 +846,7 @@
               ]
             ],
             "confusion_png": "confusion_dynamic_ASL_lstm.png",
-            "latency_ms_per_sample_model_only": 36.16539772999886
+            "latency_ms_per_sample_model_only": 298.7192530000016
           },
           "gru": {
             "accuracy": 1.0,
@@ -923,28 +923,29 @@
               ]
             ],
             "confusion_png": "confusion_dynamic_ASL_gru.png",
-            "latency_ms_per_sample_model_only": 59.05776231000118
+            "latency_ms_per_sample_model_only": 442.88063800000145
           }
         }
       },
       "pipeline_latency": {
         "static": {
-          "mean_ms": 2.6841382571611967,
-          "p95_ms": 2.9084033999879466,
-          "fps_pipeline_only": 372.5590503142047,
+          "mean_ms": 12.753888571426485,
+          "p95_ms": 16.47611999997025,
+          "fps_pipeline_only": 78.40745937206765,
           "frames": 35
         },
         "dynamic": {
-          "mean_ms": 15.342444946215338,
-          "p95_ms": 49.43725460004769,
-          "fps_pipeline_only": 65.17865982283868,
+          "mean_ms": 100.79732050420404,
+          "p95_ms": 370.9263700000744,
+          "fps_pipeline_only": 9.92089864093453,
           "frames": 595
         }
       }
     }
   },
   "hand_detector_latency": {
-    "available": false,
-    "reason": "Hand model not available (<urlopen error [Errno -2] Name or service not known>). Download it manually from"
+    "available": true,
+    "mean_ms_blank_640x480": 69.21506666666725,
+    "note": "blank frame (no hand): lower bound, see README"
   }
 }

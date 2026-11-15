@@ -23,7 +23,7 @@ import cv2
 import numpy as np
 
 from core.config import load_config, path_of
-from core.dataset import LandmarkSet
+from core.dataset import LandmarkSet, iter_sign_mnist
 from core.dataset_info import DATASETS, IMG_EXT, VID_EXT, instructions
 from core.hand_detector import DetectorUnavailable, HandDetector
 from core.landmarks import observations_to_slots, resample_sequence
@@ -37,7 +37,9 @@ def main() -> int:
     ap.add_argument("--source"); ap.add_argument("--max-per-class", type=int, default=0); ap.add_argument("--signer-regex")
     args = ap.parse_args()
     cfg = load_config()
-    if args.name:
+    if args.name == "sign_mnist":
+        root, lang, kind, source = path_of("data_raw"), args.lang or "ASL", args.kind or "static", args.source or args.name
+    elif args.name:
         d = DATASETS[args.name]
         root, lang, kind, source = path_of("data_raw") / d["folder"], args.lang or d["lang"], args.kind or d["kind"], args.source or args.name
     elif args.path and args.lang and args.kind:
@@ -61,33 +63,56 @@ def main() -> int:
         bgr = cv2.flip(bgr, 1) if mirror else bgr            # same convention as the live app
         return observations_to_slots(det.detect(cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB)))
 
-    for cdir in sorted(p for p in root.iterdir() if p.is_dir()):
-        files = sorted(f for f in cdir.rglob("*") if f.suffix.lower() in exts)
-        if args.max_per_class:
-            files = files[: args.max_per_class]
-        for f in files:
+    if args.name == "sign_mnist":
+        csv_paths = [root / "sign_mnist_train.csv"]
+        if not csv_paths[0].exists():
+            csv_paths = [root / "sign_mnist_train" / "sign_mnist_train.csv"]
+        if not csv_paths[0].exists():
+            print(f"Sign Language MNIST training CSV not found in {root}.")
+            return 1
+        per_class: dict[str, int] = {}
+        for label, gray in iter_sign_mnist(csv_paths[0]):
+            if args.max_per_class and per_class.get(label, 0) >= args.max_per_class:
+                continue
+            per_class[label] = per_class.get(label, 0) + 1
             seen += 1
-            sid = (sig_re.search(f.name).group(1) if sig_re and sig_re.search(f.name) else "unknown")
-            if kind == "static":
-                img = cv2.imread(str(f))
-                if img is None:
-                    skipped += 1; continue
-                r, m = detect(img)
-                if not m.any():
-                    skipped += 1; continue
-            else:
-                cap = cv2.VideoCapture(str(f)); frames = []
-                while True:
-                    ok, img = cap.read()
-                    if not ok:
-                        break
-                    frames.append(detect(img))
-                cap.release()
-                if sum(int(m.any()) for _, m in frames) < T // 3:
-                    skipped += 1; continue
-                r, m = resample_sequence(frames, T)
-            raws.append(r); masks.append(m); ys.append(cdir.name); sids.append(f"{source}_{sid}")
-        log.info("class %-12s kept so far: %d", cdir.name, len(ys))
+            img = cv2.cvtColor(cv2.resize(gray, (224, 224), interpolation=cv2.INTER_CUBIC), cv2.COLOR_GRAY2BGR)
+            r, m = detect(img)
+            if not m.any():
+                skipped += 1
+                continue
+            raws.append(r)
+            masks.append(m)
+            ys.append(label)
+            sids.append("sign_mnist_unknown")
+    else:
+        for cdir in sorted(p for p in root.iterdir() if p.is_dir()):
+            files = sorted(f for f in cdir.rglob("*") if f.suffix.lower() in exts)
+            if args.max_per_class:
+                files = files[: args.max_per_class]
+            for f in files:
+                seen += 1
+                sid = (sig_re.search(f.name).group(1) if sig_re and sig_re.search(f.name) else "unknown")
+                if kind == "static":
+                    img = cv2.imread(str(f))
+                    if img is None:
+                        skipped += 1; continue
+                    r, m = detect(img)
+                    if not m.any():
+                        skipped += 1; continue
+                else:
+                    cap = cv2.VideoCapture(str(f)); frames = []
+                    while True:
+                        ok, img = cap.read()
+                        if not ok:
+                            break
+                        frames.append(detect(img))
+                    cap.release()
+                    if sum(int(m.any()) for _, m in frames) < T // 3:
+                        skipped += 1; continue
+                    r, m = resample_sequence(frames, T)
+                raws.append(r); masks.append(m); ys.append(cdir.name); sids.append(f"{source}_{sid}")
+            log.info("class %-12s kept so far: %d", cdir.name, len(ys))
     if not ys:
         print("No hands detected in any file - nothing saved."); return 3
     out = path_of("data_processed") / f"{source}_{lang}_{kind}.npz"

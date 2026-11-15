@@ -1,9 +1,11 @@
 # SignBridge AI - single configuration file. All paths are relative to the project root.
 paths:
   data_raw: data/raw
+  image_data: data/raw/sign_language_mnist
   data_processed: data/processed
   models_trained: models/trained     # real models (preferred by the app when present)
   models_demo: models/demo           # synthetic demo models (fallback)
+  image_models: models/trained
   reports: reports
   logs: logs
   hand_model: models/hand_landmarker.task
@@ -48,6 +50,12 @@ training:
   rnn_epochs: 100
   rnn_units: 64
   batch_size: 64
+  image_epochs: 10
+  image_batch_size: 128
+  image_validation_size: 0.15
+  image_rf_estimators: 100
+  image_max_train: 0
+  image_max_test: 0
 
 demo:                                  # synthetic landmark generator (NOT real sign data)
   n_signers: 8
@@ -72,3 +80,4 @@ stt:
 
 webrtc:
   stun_servers: ["stun:stun.l.google.com:19302"]
+  processing_fps: 8

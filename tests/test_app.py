@@ -21,19 +21,17 @@ def app(monkeypatch):
 
 def test_app_starts_without_exceptions(app):
     assert not app.exception
-    assert len(app.tabs) == 6
+    assert len(app.tabs) == 5
 
 
-def test_demo_simulation_commits_a_sign(app):
-    app.selectbox(key="d_lang").select("ASL").run()      # label options depend on the language
-    app.selectbox(key="d_label").select("L")
-    next(b for b in app.button if "Simulate" in b.label).click()
-    app.run()
+def test_app_explains_missing_image_model(app):
     assert not app.exception
-    assert any("Committed: L" in s.value for s in app.success)
+    if app.error:
+        assert any("No trained image model" in e.value for e in app.error)
+    else:
+        assert any("Classify one sign image" in h.value for h in app.subheader)
 
 
-def test_practice_tab_scores_simulated_attempt(app):
+def test_app_exposes_required_tabs(app):
     assert not app.exception
-    # the simulated-attempt section always renders a reference image and feedback bullets
-    assert any("Simulated attempt" in m.value for m in app.markdown)
+    assert [tab.label for tab in app.tabs] == ["Image", "Video", "Live Webcam", "Data Mining Insights", "History"]

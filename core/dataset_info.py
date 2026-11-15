@@ -27,9 +27,16 @@ DATASETS = {
                "  contacting the authors for access (see their papers / project pages, or Kaggle 'Pakistan Sign Language' uploads).\n"
                "  If you cannot obtain them, RECORD YOUR OWN: python scripts/record_samples.py --lang PSL --label <X> --kind static",
     },
+    "sign_mnist": {
+        "lang": "ASL", "kind": "static", "folder": ".",
+        "layout": "sign_mnist_train.csv and sign_mnist_test.csv (28x28 grayscale rows)",
+        "how": "Sign Language MNIST: https://www.kaggle.com/datasets/datamunge/sign-language-mnist\n"
+               "  The repository accepts the CSV files directly from data/raw; labels cover 24 ASL letters (J and Z are absent).",
+    },
 }
 IMG_EXT = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
 VID_EXT = {".mp4", ".avi", ".mov", ".mkv", ".webm"}
+CSV_EXT = {".csv"}
 
 
 def instructions(name: str) -> str:

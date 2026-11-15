@@ -1,0 +1,42 @@
+{
+  "n_samples": 27455,
+  "n_classes": 24,
+  "class_counts": {
+    "A": 1126,
+    "B": 1010,
+    "C": 1144,
+    "D": 1196,
+    "E": 957,
+    "F": 1204,
+    "G": 1090,
+    "H": 1013,
+    "I": 1162,
+    "K": 1114,
+    "L": 1241,
+    "M": 1055,
+    "N": 1151,
+    "O": 1196,
+    "P": 1088,
+    "Q": 1279,
+    "R": 1294,
+    "S": 1199,
+    "T": 1186,
+    "U": 1161,
+    "V": 1082,
+    "W": 1225,
+    "X": 1164,
+    "Y": 1118
+  },
+  "kmeans_cluster_purity": 0.21433333333333332,
+  "outlier_count_reported": 25,
+  "rf_importance": {
+    "max": 0.003398328611981921,
+    "mean": 0.0012755102040816326
+  },
+  "cnn_saliency": {
+    "predicted_class": "E",
+    "max": 0.2928997874259949,
+    "mean": 0.03466850891709328
+  },
+  "notes": "PCA/t-SNE/K-means/outliers use a reproducible 3,000-row sample; all rows come from the supplied training CSV."
+}

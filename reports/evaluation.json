@@ -1,0 +1,14 @@
+{
+  "dataset_test": "D:\\05. UNI Works\\02. CV subject\\SignBridge_AI\\data\\raw\\sign_mnist_test.csv",
+  "n_test": 7172,
+  "models": {
+    "cnn": {
+      "accuracy": 0.7053820412716119,
+      "macro_f1": 0.707178443130891
+    },
+    "random_forest": {
+      "accuracy": 0.8123257110987172,
+      "macro_f1": 0.7961454412028273
+    }
+  }
+}
